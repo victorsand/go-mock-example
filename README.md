@@ -15,6 +15,11 @@ Two services:
 - `ActivitityService` which fetches `Walk` and `BikeRide` data from some imagined external API. This is the service we want to provide mock implementations for.
 - `SummaryService` which internally uses an `ActivityService` instance, uses it to get some data and then perform some simple calculations on it. This is the service we want to test.
 
+## Run the test
+`cd summaries`
+`go test`
+
+
 ## Setup
 
 `ActivityService` implements `ActivityServiceInterface`. So does `MockActivityService`. The idea is to, for each interface method, provide the ability for a unit test to provide its own implementation using `func`s like so:

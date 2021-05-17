@@ -1,7 +1,7 @@
-# A Simple Pattern for Mocks in Go Unit Testing
+# A simple pattern for mocks in Go unit testing
 
 ## Purpose
-Illustrate a simple approach for mocking Go interfaces. 
+Illustrate a simple approach for mocking Go interfaces when testing internal dependencies.
 
 ## When is it useful?
 When you have several internal and interconnected services in your application and want to test one at a time, providing mock data or functionality for the dependencies.

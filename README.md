@@ -22,9 +22,9 @@ Two services:
 
 ## Setup
 
-`ActivityService` implements `ActivityServiceInterface`. So does `MockActivityService`. The idea is to, for each interface method, provide the ability for a unit test to provide its own implementation using `func`s like so:
+`ActivityService` implements `ActivityServiceInterface`. So does `MockActivityService`. The idea is to, for each interface method, provide the ability for a unit test to provide its own implementation using `func`s like so ([in summary_service_test.go](summary_service_test.go)):
 
-```
+```go
 package mock
 
 import  "go-mock-example/activities"
@@ -44,7 +44,7 @@ func (s *MockActivityService) BikeRides() ([]activities.BikeRide, error) {
 ```
 In the test, we simply provide the data we need in the setup stage:
 
-```
+```go
 mockActivityService := mock.MockActivityService{
 	WalksFunc: func() ([]activities.Walk, error) {
 		return []activities.Walk{
@@ -59,8 +59,8 @@ mockActivityService := mock.MockActivityService{
 	},
 }
 ```
-We the instanciate the service want to test and provide the mock as the dependency:
-```
+We the instantiated the service want to test and provide the mock as the dependency:
+```go
 summariesService := SummariesService{
 	activityService: &mockActivityService,
 }

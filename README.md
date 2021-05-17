@@ -22,7 +22,7 @@ Two services:
 
 ## Setup
 
-`ActivityService` implements `ActivityServiceInterface`. So does `MockActivityService`. The idea is to, for each interface method, provide the ability for a unit test to provide its own implementation using `func`s like so ([in summary_service_test.go](summary_service_test.go)):
+`ActivityService` implements `ActivityServiceInterface`. So does `MockActivityService`. The idea is to, for each interface method, provide the ability for a unit test to provide its own implementation using `func`s like so (in [mock_activity_service.go](mock/mock_activity_service.go)):
 
 ```go
 package mock
@@ -42,7 +42,7 @@ func (s *MockActivityService) BikeRides() ([]activities.BikeRide, error) {
     return s.BikeRidesFunc()
 }
 ```
-In the test, we simply provide the data we need in the setup stage:
+In the test ( [summary_service_test.go](summaries/summary_service_test.go)), we provide the data we need in the setup stage:
 
 ```go
 mockActivityService := mock.MockActivityService{
@@ -59,7 +59,7 @@ mockActivityService := mock.MockActivityService{
 	},
 }
 ```
-We the instantiated the service want to test and provide the mock as the dependency:
+We then instantiated the service want to test and provide the mock as the dependency:
 ```go
 summariesService := SummariesService{
 	activityService: &mockActivityService,
@@ -67,5 +67,5 @@ summariesService := SummariesService{
 ```
 
 ## Benefits
-- The mock class does not contain any logic on its own, and doesn't have to change unless the interface changes.
+- The mock class does not contain any business logic on its own, and doesn't have to change unless the interface changes.
 -  Each unit test is 100% responsible for providing exactly the data needed. Default implementations are of course possible and is a matter of choice. As is, the test crash if one tries to call a method without a provided implementation.

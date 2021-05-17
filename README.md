@@ -13,7 +13,7 @@ The services need to talk to each other using `interfaces` in order to make mock
 
 Two services:
 - `ActivitityService` which fetches `Walk` and `BikeRide` data from some imagined external API. This is the service we want to provide mock implementations for.
-- `SummaryService` which internally uses an `ActivityService` instance, uses it to get some data and then perform some simple calculations on it. This is the service we want to test.
+- `SummaryService` which internally uses an `ActivityServiceInterface` dependency, uses it to get some data and then perform some simple calculations on it. This is the service we want to test without relying on a real `ActivityService` implementation.
 
 ## Run the test
 `cd summaries`
@@ -42,7 +42,7 @@ func (s *MockActivityService) BikeRides() ([]activities.BikeRide, error) {
     return s.BikeRidesFunc()
 }
 ```
-In the test ( [summary_service_test.go](summaries/summary_service_test.go)), we provide the data we need in the setup stage:
+In the test ([summary_service_test.go](summaries/summary_service_test.go)), we provide the data we need in the setup stage:
 
 ```go
 mockActivityService := mock.MockActivityService{

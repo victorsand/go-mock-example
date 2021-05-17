@@ -37,10 +37,6 @@ type ActivityServiceInterface interface {
 The idea is to, for each interface method, provide the ability for a unit test to provide its own implementation using corresponding `func`s like so (in [mock_activity_service.go](mock/mock_activity_service.go)):
 
 ```go
-package mock
-
-import  "go-mock-example/activities"
-
 type  MockActivityService  struct {
     WalksFunc func() ([]activities.Walk, error)
     BikeRidesFunc func() ([]activities.BikeRide, error)
@@ -76,8 +72,10 @@ We the instantiated the service want to test and provide the mock as the depende
 summariesService := SummariesService{
 	activityService: &mockActivityService,
 }
+Then we make the test assertions we need.
 ```
 
 ## Benefits
-- The mock class does not contain any logic on its own, and doesn't have to change unless the interface changes.
--  Each unit test is 100% responsible for providing exactly the data needed. Default implementations are of course possible and is a matter of choice. As is, the test crash if one tries to call a method without a provided implementation.
+- No additional libraries or tools needed.
+- The mock classes do not contain any logic on their own, and don't have to change unless the interfaces change.
+-  Each unit test is 100% responsible for providing exactly the data needed (and only that data). Default implementations are of course possible and is a matter of choice. As is, the tests crash if one tries to call a methods without a provided implementations.
